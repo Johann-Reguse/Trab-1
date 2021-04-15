@@ -75,7 +75,7 @@ void *client_handle(void *cd)
         posip = ftell(fp);
         sprintf(sendBuff, "%d", posip);
         fflush(stdout);
-        send(client->sk, sendBuff, 4, 0);
+        send(client->sk, sendBuff, 32, 0);
         printf("\nEnviado o tamanho do arquivo! Tamanho = %s\n", sendBuff);
         fflush(stdout);
     }
@@ -104,9 +104,10 @@ void *client_handle(void *cd)
     while (feof(fp) == 0)
     {
         memset(sendBuff, 0, sizeof(sendBuff));
-        fread(sendBuff, 1024, 1, fp);
+        n = fread(sendBuff, 1, 1024, fp);
+        printf("\n---->%d", n);
 
-        if (send(client->sk, sendBuff, sizeof(sendBuff), 0) == -1)
+        if (send(client->sk, sendBuff, n, 0) == -1)
         {
             printf("Erro ao enviar a menssagem");
             fflush(stdout);

@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
     par = fopen(nf, "w+");
     int tfile;
 
-    if (recv(sockfd, recvBuff, 4, 0) < 0)
+    if (recv(sockfd, recvBuff, 32, 0) < 0)
     {
         printf("Erro ao abrir o arquivo no servidor");
         fflush(stdout);
@@ -103,23 +103,31 @@ int main(int argc, char *argv[])
     }
 
     memset(recvBuff, 0, sizeof(recvBuff));
+    printf("\n--+%ld-------------------------------->%d\n",strlen(recvBuff), n);
     memset(test, 0, sizeof(test));
     fseek(par, 0, SEEK_SET);
-    /*recebe o arquivo */
-    while ((n = recv(sockfd, recvBuff, sizeof(recvBuff), 0)) > 0)
-    {
 
-        if (strlen(recvBuff) < 1024)
+    /*recebe o arquivo */
+    int nrec = 0;
+    while (nrec<tfile)
+    {
+        n = recv(sockfd, recvBuff, sizeof(recvBuff), 0);
+        
+        if (n < 1024)
         {
-            //recvBuff[69]='&';
-            fwrite(recvBuff, 1, strlen(recvBuff), par);
+            nrec+=n;
+            printf("\n-if-+%ld-->%d",strlen(recvBuff), n);
+            fwrite(recvBuff, 1, n, par);
         }
         else
         {
-
+            nrec+=1024;
+            printf("\n-else-+1024-->%d", n);
             fwrite(recvBuff, 1, 1024, par);
         }
-
+        if(n==0){
+            break;
+        }
         memset(recvBuff, 0, sizeof(recvBuff));
     }
     printf("Aquivo recebido com sucesso!! \n");
@@ -143,7 +151,7 @@ int main(int argc, char *argv[])
     else
     {
         printf("Erro na verificação do código hash ------>test: %s\n------>hash: %s \n ", test, hash);
-        remove(nf);
+        //remove(nf);
     }
     fclose(fpipe);
     close(sockfd);

@@ -6,5 +6,7 @@
 
 ----> tcp-server-multithread : Deve estar rodando na máquina que guarda os arquivos e atende as requisições de modo multithread
 
-----> filedir/ : esta pasta deve estar alocada no mesmo local onde está sendo rodado o programa tcp-server-multithread,
+----> filedir/ : Esta pasta deve estar alocada no mesmo local onde está sendo rodado o programa tcp-server-multithread,
                  dentro dela estará todos os arquivos passiveis de transferência.
+----> trab.c : Relacionado ao último trabalho, sobre gerenciamento de arquivos na FAT32. Não lembro se foi a versão final enviada 
+               ao professor nem se este código atende aos requisotos propostos.

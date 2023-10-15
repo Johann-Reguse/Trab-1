@@ -10,4 +10,4 @@
                  dentro dela estará todos os arquivos passiveis de transferência.
                  
 ----> trab.c : Relacionado ao último trabalho, sobre gerenciamento de arquivos na FAT32. Não lembro se foi a versão final enviada 
-               ao professor nem se este código atende aos requisotos propostos.
+               ao professor nem se este código atende aos requisitos propostos.
